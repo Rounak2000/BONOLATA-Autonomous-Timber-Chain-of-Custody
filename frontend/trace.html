@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Traceability</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Special Timeline Styles for Consumer View */
+        .search-container {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+        .search-container input {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-container input:focus {
+            border-color: var(--primary);
+        }
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 0;
+            display: none; /* Hidden until search */
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            height: 100%;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 32px;
+        }
+        .timeline-icon {
+            position: absolute;
+            left: 8px;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            z-index: 10;
+        }
+        .timeline-step.success .timeline-icon {
+            border-color: var(--success);
+            color: var(--success);
+            background: #ecfccb;
+        }
+        .timeline-step.warning .timeline-icon {
+            border-color: var(--warning);
+            color: var(--warning);
+            background: #fef3c7;
+        }
+        .timeline-content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .timeline-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .timeline-details {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html" class="active"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Product Traceability</h1>
+                    <p class="page-subtitle">Verify the origin and journey of your timber asset.</p>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Enter Timber ID (e.g., TMB-001)" onkeypress="handleEnter(event)">
+                <button class="btn" onclick="traceTimber()">
+                    <i data-lucide="search"></i> Track
+                </button>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading-indicator" style="display: none; padding: 40px; text-align: center; color: var(--text-muted);">
+                <i data-lucide="loader" class="spin" style="margin-bottom: 10px; width: 32px; height: 32px;"></i><br>
+                Searching blockchain ledger...
+            </div>
+
+            <!-- TIMELINE VISUALIZATION -->
+            <div class="timeline" id="trace-timeline">
+                <!-- Javascript will inject the steps here -->
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/trace.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

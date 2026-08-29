@@ -1,0 +1,513 @@
+
+.main-content {
+    padding: 24px;
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+.main-content header {
+    margin-bottom: 24px;
+}
+
+.main-content header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+}
+
+.main-content header h2::after {
+    content: "  •  Real-time AI safety monitoring";
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #64748b;
+    letter-spacing: 0;
+}
+
+/* ================= MAIN GRID ================= */
+
+.safety-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.8fr);
+    gap: 22px;
+    align-items: stretch;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+}
+
+.card h3 {
+    margin: 0 0 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.card h4 {
+    margin: 0 0 10px;
+    color: #475569;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+/* ================= CAMERA CARD ================= */
+
+.safety-grid > .card:first-child {
+    min-height: 450px;
+}
+
+.safety-grid > .card:first-child > div:first-child {
+    align-items: center;
+}
+
+.safety-grid > .card:first-child h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+/* ================= STATUS BADGES ================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 7px 12px;
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+
+    white-space: nowrap;
+}
+
+/* AI Ready */
+
+.status-normal {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+
+/* Warning */
+
+.status-warning {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+/* Critical */
+
+.status-critical {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* ================= VIDEO ================= */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 390px;
+
+    overflow: hidden;
+
+    background: #020617;
+    border-radius: 14px;
+
+    border: 1px solid #1e293b;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.03),
+        0 8px 25px rgba(15, 23, 42, 0.15);
+}
+
+/* Camera */
+
+#webcam {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transform: scaleX(-1);
+}
+
+/* MediaPipe Canvas */
+
+#output_canvas {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+/* Camera overlay */
+
+.video-container::before {
+    content: "LIVE • AI VISION";
+
+    position: absolute;
+    top: 12px;
+    left: 12px;
+
+    z-index: 3;
+
+    padding: 6px 10px;
+
+    border-radius: 6px;
+
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(6px);
+
+    color: #f8fafc;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+/* ================= BUTTONS ================= */
+
+button {
+    font-family: inherit;
+}
+
+.btn {
+    border: none;
+    border-radius: 9px;
+
+    padding: 10px 17px;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: #334155;
+
+    border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* ================= DRIVER INFORMATION ================= */
+
+#ui-driver-name,
+#ui-driver-id,
+#ui-vehicle-id,
+#ui-shipment-id {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.card p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 11px 0;
+
+    font-size: 0.86rem;
+    color: #64748b;
+}
+
+.card p strong {
+    color: #475569;
+    font-weight: 600;
+}
+
+/* Divider */
+
+.card hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ================= DRIVER STATE ================= */
+
+#driver-state {
+    min-height: 48px;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px !important;
+
+    font-size: 0.95rem !important;
+    font-weight: 700;
+}
+
+/* ================= DEMO MODE ================= */
+
+.card[style*="dashed"] {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1 !important;
+}
+
+.card[style*="dashed"] h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card[style*="dashed"] h3::before {
+    content: "🧪";
+    font-size: 1rem;
+}
+
+.card[style*="dashed"] p {
+    display: block;
+
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+#btn-demo-warning,
+#btn-demo-critical {
+    flex: 1;
+
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    padding: 10px 12px !important;
+
+    border-radius: 8px !important;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#btn-demo-warning:hover,
+#btn-demo-critical:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.95);
+}
+
+#btn-demo-warning {
+    box-shadow: 0 4px 10px rgba(234, 179, 8, 0.2);
+}
+
+#btn-demo-critical {
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+/* ================= ALERT HISTORY ================= */
+
+.main-content > .card:last-child {
+    margin: 22px 0 0 !important;
+    overflow: hidden;
+}
+
+.main-content > .card:last-child h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.main-content > .card:last-child h3::after {
+    content: "LIVE";
+    padding: 4px 8px;
+
+    border-radius: 5px;
+
+    background: #ecfdf5;
+    color: #047857;
+
+    font-size: 0.65rem;
+    letter-spacing: 0.7px;
+}
+
+/* ================= TABLE ================= */
+
+.data-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.data-table thead {
+    background: #f8fafc;
+}
+
+.data-table th {
+    padding: 12px 14px;
+
+    text-align: left;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+
+    color: #64748b;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table td {
+    padding: 13px 14px;
+
+    font-size: 0.82rem;
+
+    color: #475569;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.data-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+    .safety-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-container {
+        height: 420px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .main-content {
+        padding: 14px;
+    }
+
+    .main-content header h2 {
+        font-size: 1.35rem;
+    }
+
+    .main-content header h2::after {
+        display: none;
+    }
+
+    .card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .video-container {
+        height: 300px;
+    }
+
+    .card p {
+        font-size: 0.78rem;
+    }
+
+    #btn-demo-warning,
+    #btn-demo-critical {
+        font-size: 0.72rem;
+    }
+
+    .data-table {
+        min-width: 600px;
+    }
+
+    .main-content > .card:last-child {
+        overflow-x: auto;
+    }
+}
+
+/* ================= AI ACTIVE ANIMATION ================= */
+
+.ai-monitoring {
+    animation: aiPulse 1.8s infinite;
+}
+
+@keyframes aiPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* ================= ACCESSIBILITY ================= */
+
+button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.3);
+    outline-offset: 2px;
+}
+

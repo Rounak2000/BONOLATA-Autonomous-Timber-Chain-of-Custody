@@ -1,0 +1,30 @@
+[
+    {
+        "registration_number": "WB -72H-6678",
+        "vehicle_type": "Truck",
+        "vehicle_id": "VEH-1485",
+        "driver_id": "DRV-0001",
+        "status": "AVAILABLE"
+    },
+    {
+        "registration_number": "dfdfdf",
+        "vehicle_type": "car",
+        "vehicle_id": "VEH-7021",
+        "driver_id": "DRV-0001",
+        "status": "AVAILABLE"
+    },
+    {
+        "registration_number": "wB_06_4423",
+        "vehicle_type": "bike",
+        "vehicle_id": "VEH-1906",
+        "driver_id": "DRV-0001",
+        "status": "AVAILABLE"
+    },
+    {
+        "registration_number": "WB-06-A5623",
+        "vehicle_type": "car",
+        "vehicle_id": "VEH-6275",
+        "driver_id": "DRV-0002",
+        "status": "AVAILABLE"
+    }
+]

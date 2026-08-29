@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Blockchain Explorer</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blockchain.css">
+    
+    <!-- We removed the old inline <style> block here because the new 
+         interlocking chain styles are now safely stored in your style.css! -->
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                <!-- Restored the Driver Safety Link -->
+                <a href="driver-safety.html"><i data-lucide="eye"></i> Driver Safety</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html" class="active"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Blockchain Explorer</h1>
+                    <p class="page-subtitle">Immutable ledger of all supply chain events.</p>
+                </div>
+                <button class="btn" onclick="validateLedger()" id="validate-btn">
+                    <i data-lucide="shield-check"></i> Validate Ledger Integrity
+                </button>
+            </div>
+            
+            <!-- BLOCKCHAIN VISUALIZATION -->
+            <!-- ID updated to match the new javascript -->
+            <div id="blockchain-container">
+                <div style="text-align: center; color: var(--text-muted); padding: 40px;">
+                    <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i><br>
+                    Syncing with blockchain...
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <!-- TIMBERTRUST AI CHATBOT WIDGET -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <div id="tt-chatbot-wrapper">
+        <button id="tt-chat-toggle">💬</button>
+        <div id="tt-chat-window" class="hidden">
+            <div id="tt-chat-header">
+                <span>Riya AI</span>
+                <button id="tt-chat-close">✖</button>
+            </div>
+            <div id="tt-chat-messages"></div>
+            <div id="tt-chat-suggestions"></div>
+            <div id="tt-chat-input-area" style="display: flex; align-items: center; gap: 6px; width: 100%;">
+                <input type="text" id="tt-chat-input" autocomplete="off" placeholder="Ask Riya...">
+                <button id="tt-chat-suggestions-toggle" type="button" aria-label="Show suggestions" title="Show suggestions" 
+                    style="width: 34px; height: 34px; min-width: 34px; border: 1px solid #dbe4dc; border-radius: 10px; background: #f8faf9; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;"
+                    onmouseover="this.style.background='#ecfdf5'; this.style.borderColor='#86efac'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 3px 8px rgba(22,101,52,0.12)';"
+                    onmouseout="this.style.background='#f8faf9'; this.style.borderColor='#dbe4dc'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-1px)';">
+                    ↑
+                </button>
+                <button id="tt-chat-send" type="submit" aria-label="Send message" 
+                    style="width: 42px; height: 42px; min-width: 42px; border: none; border-radius: 13px; background: linear-gradient(135deg, #166534, #15803d); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(22, 101, 52, 0.20); transition: all 0.2s ease; padding: 0;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 14px rgba(22,101,52,0.28)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(22,101,52,0.20)';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-2px)';">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatbot.js"></script>
+    <!-- END AI WIDGET -->
+
+    <script src="js/api.js"></script>
+    <script src="js/blockchain.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

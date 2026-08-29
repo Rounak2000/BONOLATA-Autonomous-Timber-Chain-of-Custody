@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 BONOLATA | Dashboard</title>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Team and Overview Custom Styles */
+        .project-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 24px;
+            color: #f8fafc;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid #3b82f6;
+            color: #60a5fa;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .tech-pill {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+        .team-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+        }
+        .team-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+            flex-shrink: 0;
+            border: 2px solid #3b82f6;
+            overflow: hidden;
+        }
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mentor-card {
+            border-left: 4px solid #10b981;
+            background: #f0fdf4;
+        }
+        .mentor-card .team-avatar {
+            border-color: #10b981;
+            background: #dcfce7;
+            color: #166534;
+        }
+        @media (max-width: 900px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>BONOLATA</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="active"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                <a href="driver-safety.html"><i data-lucide="eye"></i> Driver Safety</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            
+            <!-- IEEE INTERNSHIP BANNER -->
+            <div class="project-banner">
+                <div class="project-badge">
+                    <i data-lucide="award" style="width: 14px;"></i> IEEE Internship Project
+                </div>
+                <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 8px;">🌿 BONOLATA: Autonomous Timber Chain of Custody</h1>
+                <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.5; max-width: 850px;">
+                    An enterprise-grade, decentralized verification platform designed to combat illegal deforestation, monitor physical timber assets via IoT telemetry, ensure driver vigilance through Edge AI computer vision, and guarantee chain-of-custody integrity with immutable cryptographic hashing.
+                </p>
+            </div>
+
+            <!-- METRIC CARDS -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">
+                        <span>Total Timber Assets</span>
+                        <i data-lucide="boxes" style="color: var(--info);"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-main);" id="stat-timber">
+                        <i data-lucide="loader" class="spin"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">
+                        <span>Active Shipments</span>
+                        <i data-lucide="truck" style="color: var(--warning);"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-main);" id="stat-shipments">
+                        <i data-lucide="loader" class="spin"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">
+                        <span>Security Alerts</span>
+                        <i data-lucide="shield-alert" style="color: var(--danger);"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-main);" id="stat-alerts">
+                        <i data-lucide="loader" class="spin"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">
+                        <span>Ledger Integrity</span>
+                        <i data-lucide="link" style="color: var(--success);"></i>
+                    </div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-top: 8px;" id="stat-ledger">
+                        <i data-lucide="loader" class="spin"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT OVERVIEW & QUICK ACTIONS -->
+            <div class="overview-grid">
+                <!-- System Architecture & Capabilities -->
+                <div class="card">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="cpu" style="color: #3b82f6; width: 20px;"></i> Architecture & Core Systems
+                    </h3>
+                    <p style="color: #475569; font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+                        🌿 BONOLATA establishes an end-to-end audit trail for timber transportation using four foundational pillars:
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: #0f172a; font-size: 0.85rem; display: block; margin-bottom: 4px;">🛰️ IoT Route Geofencing</strong>
+                            <span style="color: #64748b; font-size: 0.8rem;">Monitors GPS telemetry and flags route deviations or unauthorized perimeter exits.</span>
+                        </div>
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: #0f172a; font-size: 0.85rem; display: block; margin-bottom: 4px;">👁️ Edge AI Driver Monitor</strong>
+                            <span style="color: #64748b; font-size: 0.8rem;">Calculates real-time Eye Aspect Ratio (EAR) via MediaPipe to prevent fatigue-induced accidents.</span>
+                        </div>
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: #0f172a; font-size: 0.85rem; display: block; margin-bottom: 4px;">⛓️ SHA-256 Ledger</strong>
+                            <span style="color: #64748b; font-size: 0.8rem;">Every custody transfer, checkpoint clearance, and driver alert is immutably cryptographically sealed.</span>
+                        </div>
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: #0f172a; font-size: 0.85rem; display: block; margin-bottom: 4px;">🤖 Charulata AI Assistant</strong>
+                            <span style="color: #64748b; font-size: 0.8rem;">RAG-powered conversational interface for instant compliance querying and dispatch diagnostics.</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 16px;">
+                        <span class="tech-pill">FastAPI</span>
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">Edge AI / MediaPipe</span>
+                        <span class="tech-pill">Leaflet.js</span>
+                        <span class="tech-pill">Cryptography</span>
+                    </div>
+                </div>
+
+                <!-- Quick Action Panel -->
+                <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="zap" style="color: #eab308; width: 20px;"></i> Quick Operations
+                        </h3>
+                        <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 16px;">Direct shortcuts to active dispatch and governance modules.</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <a href="shipment.html" class="btn" style="width: 100%;"><i data-lucide="truck"></i> Dispatch Shipment</a>
+                            <a href="monitoring.html" class="btn btn-secondary" style="width: 100%;"><i data-lucide="map-pinned"></i> Control Center</a>
+                            <a href="driver-safety.html" class="btn btn-secondary" style="width: 100%;"><i data-lucide="eye"></i> AI Safety Camera</a>
+                            <a href="blockchain.html" class="btn btn-secondary" style="width: 100%;"><i data-lucide="shield-check"></i> Audit Ledger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 NEW: AI TREE SPECIES DETECTION MODULE
+                 ========================================== -->
+
+            <div class="card" style="margin-top: 24px; border: 1px solid #e2e8f0; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="leaf" style="color: #10b981;"></i> AI Tree Species Detection
+                    </h3>
+                    <span style="background: #ecfdf5; color: #059669; font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: 700; border: 1px solid #10b981; display: flex; align-items: center; gap: 4px;">
+                        <span style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; display: inline-block; animation: pulse 2s infinite;"></span> Vision AI Active
+                    </span>
+                </div>
+                
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 24px;">
+                    Verify timber authenticity before registering it to the blockchain ledger by uploading a cross-section or leaf image. Powered by a custom trained ResNet18 neural network.
+                </p>
+                
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <!-- Upload Section -->
+                    <div style="flex: 1; min-width: 250px;">
+                        <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; background: #f8fafc; margin-bottom: 16px; transition: all 0.2s ease;" id="upload-box" onmouseover="this.style.borderColor='#3b82f6'; this.style.background='#eff6ff';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
+                            <img id="tree-preview" src="" style="max-width: 100%; max-height: 220px; display: none; border-radius: 8px; margin: 0 auto 16px auto; box-shadow: 0 8px 16px rgba(0,0,0,0.1);" />
+                            <div id="upload-icon-container">
+                                <i data-lucide="image-plus" style="width: 48px; height: 48px; color: #94a3b8; margin-bottom: 12px;"></i>
+                                <p style="color: #475569; font-weight: 600; margin-bottom: 4px;">Upload Image</p>
+                                <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 16px;">PNG, JPG up to 10MB</p>
+                            </div>
+                            <input type="file" id="tree-upload" accept="image/*" style="display: none;" />
+                            <button class="btn btn-secondary" onclick="document.getElementById('tree-upload').click()" style="width: 100%; border-radius: 8px;">Select Image</button>
+                        </div>
+                        <button id="detect-tree-btn" class="btn" style="width: 100%; display: none; border-radius: 8px; font-weight: 600; padding: 12px;" onclick="runTreeDetection()">
+                            <i data-lucide="scan-line"></i> Detect Species
+                        </button>
+                    </div>
+
+                    <!-- Enhanced Result Section -->
+                    <div id="detection-result" style="flex: 1.2; min-width: 250px; display: none; flex-direction: column; justify-content: center; background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; position: relative;">
+                        
+                        <!-- Watermark Icon -->
+                        <i data-lucide="microscope" style="position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; color: rgba(148, 163, 184, 0.1); z-index: 0;"></i>
+
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <h4 style="color: #64748b; text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em;">Detection Result</h4>
+                                <div style="display: flex; align-items: center; gap: 4px; font-weight: 700; color: #059669; font-size: 0.85rem; background: #dcfce7; padding: 4px 10px; border-radius: 20px; box-shadow: 0 2px 4px rgba(22, 101, 52, 0.1);">
+                                    <i data-lucide="check-circle-2" style="width: 14px;"></i> <span id="result-confidence">98.5%</span> Match
+                                </div>
+                            </div>
+                            
+                            <!-- Botanical Name -->
+                            <div id="result-species" style="font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; font-style: italic;">Shorea robusta</div>
+                            
+                            <!-- Dictionary Description -->
+                            <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                    <i data-lucide="info" style="color: #3b82f6; width: 16px;"></i>
+                                    <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;" id="result-common-name">Sal Tree</span>
+                                </div>
+                                <p id="result-description" style="font-size: 0.85rem; color: #475569; line-height: 1.5; margin: 0;">
+                                    A dominant hardwood tree in Indian forests, yielding highly durable timber and resin.
+                                </p>
+                            </div>
+                            
+                            <button class="btn btn-secondary" style="margin-top: 24px; font-size: 0.85rem; width: 100%; border-radius: 8px;" onclick="resetTreeDetection()">
+                                <i data-lucide="refresh-cw" style="width: 16px;"></i> Scan Another Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- ==========================================
+                 END OF AI MODULE
+                 ========================================== -->
+
+            <!-- PROJECT TEAM & MENTORSHIP SECTION -->
+            <div class="card" style="margin-top: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="users" style="color: #3b82f6; width: 20px;"></i> Project Development Team & Mentorship
+                    </h3>
+                    <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">IEEE Internship Program</span>
+                </div>
+                <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 16px;">
+                    Engineered and developed under the academic and technical guidance of our mentor.
+                </p>
+
+                <div class="team-grid">
+                    
+                    <!-- Mentor Card -->
+                    <div class="team-card mentor-card">
+                        <div class="team-avatar">
+                            <img src="images/ramenPal.jpeg" alt="Dr. Ramen Pal" onerror="this.parentElement.innerHTML='RP'">
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.05em;">Project Mentor</div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem;">Dr. Ramen Pal</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">Academic & Technical Advisor</div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 1 -->
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <img src="images/rounak.jpeg" alt="Rounak Singha" onerror="this.parentElement.innerHTML='RS'">
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Lead Developer</div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem;">Rounak Singha</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">IEEE Project Intern</div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <img src="images/shobhandeb.jpeg" alt="Shobhandeb Adak" onerror="this.parentElement.innerHTML='SA'">
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Lead Developer</div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem;">Shobhandeb Adak</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">IEEE Project Intern</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 🌿 BONOLATA AI CHATBOT WIDGET -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <div id="tt-chatbot-wrapper">
+        <button id="tt-chat-toggle">💬</button>
+        <div id="tt-chat-window" class="hidden">
+            <div id="tt-chat-header">
+                <span>Charulata 👩</span>
+                <button id="tt-chat-close">✖</button>
+            </div>
+            <div id="tt-chat-messages"></div>
+            
+            <!-- Suggestions -->
+            <div id="tt-chat-suggestions"></div>
+
+            <!-- Chat input area -->
+            <div id="tt-chat-input-area" style="display: flex; align-items: center; gap: 6px; width: 100%;">
+                <input type="text" id="tt-chat-input" autocomplete="off" placeholder="Ask Riya...">
+
+                <button id="tt-chat-suggestions-toggle" type="button" aria-label="Show suggestions" title="Show suggestions" 
+                    style="width: 34px; height: 34px; min-width: 34px; border: 1px solid #dbe4dc; border-radius: 10px; background: #f8faf9; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;"
+                    onmouseover="this.style.background='#ecfdf5'; this.style.borderColor='#86efac'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 3px 8px rgba(22,101,52,0.12)';"
+                    onmouseout="this.style.background='#f8faf9'; this.style.borderColor='#dbe4dc'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-1px)';">
+                    ↑
+                </button>
+
+                <button id="tt-chat-send" type="submit" aria-label="Send message" 
+                    style="width: 42px; height: 42px; min-width: 42px; border: none; border-radius: 13px; background: linear-gradient(135deg, #166534, #15803d); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(22, 101, 52, 0.20); transition: all 0.2s ease; padding: 0;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 14px rgba(22,101,52,0.28)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(22,101,52,0.20)';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-2px)';">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatbot.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

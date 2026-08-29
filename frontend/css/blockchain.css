@@ -1,0 +1,198 @@
+/* =========================================================
+   TIMBERTRUST - HORIZONTAL BLOCKCHAIN ROADMAP & CHAIN ANIMATION
+   ========================================================= */
+
+#blockchain-container {
+    display: flex;
+    flex-direction: row; /* Horizontal Layout */
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 20px 50px 20px;
+    overflow-x: auto; /* Horizontal scrolling for long chains */
+    width: 100%;
+    min-height: 280px;
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Horizontal Navigation */
+#blockchain-container::-webkit-scrollbar {
+    height: 8px;
+}
+#blockchain-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+#blockchain-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+/* --- Compact Horizontal Block Card --- */
+.block-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    min-width: 280px; /* Fixed width per block */
+    max-width: 280px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.block-card.tampered {
+    border-color: #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
+    animation: blockShake 0.5s ease-in-out;
+}
+
+@keyframes blockShake {
+    0%, 100% { transform: translateY(0); }
+    20%, 60% { transform: translateY(-6px); }
+    40%, 80% { transform: translateY(6px); }
+}
+
+/* --- Compact Header --- */
+.block-header {
+    background: #f8fafc;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    border-radius: 11px 11px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 4px solid #3b82f6; /* Top accent bar for horizontal design */
+}
+
+.block-header.genesis {
+    border-top-color: #10b981;
+}
+
+.block-title {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.block-time {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* --- Body & Hashes --- */
+.block-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hash-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+.hash-row.current {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.hash-row-label {
+    font-weight: 600;
+    color: #64748b;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+}
+
+.hash-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.hash-row.current .hash-val {
+    color: #1d4ed8;
+}
+
+.tx-box-mini {
+    background: #0f172a;
+    color: #38bdf8;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    max-height: 70px;
+    overflow-y: auto;
+}
+
+/* --- HORIZONTAL INTERLOCKING CHAIN CONNECTOR --- */
+.chain-connector {
+    width: 50px;
+    height: 30px;
+    display: flex;
+    flex-direction: row; /* Horizontal Rings */
+    align-items: center;
+    justify-content: center;
+    margin: 0 -8px; /* Negative margin pulls blocks closer */
+    z-index: 5;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.chain-ring {
+    width: 22px;
+    height: 14px;
+    border: 4px solid #94a3b8;
+    border-radius: 10px;
+    background: #f8fafc;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+}
+
+.chain-ring.right {
+    margin-left: -10px;
+    border-color: #64748b;
+}
+
+/* --- BROKEN CHAIN ANIMATION (HORIZONTAL) --- */
+.chain-connector.broken .chain-ring.left {
+    transform: translateX(-10px) rotate(-35deg);
+    border-color: #ef4444;
+    opacity: 0.8;
+}
+
+.chain-connector.broken .chain-ring.right {
+    transform: translateX(10px) rotate(35deg);
+    border-color: #ef4444;
+    opacity: 0.8;
+}
+
+.chain-connector.broken::after {
+    content: '⚡ BROKEN';
+    position: absolute;
+    top: -24px;
+    color: #ef4444;
+    font-size: 0.65rem;
+    font-weight: 800;
+    background: #fee2e2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #fca5a5;
+    white-space: nowrap;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}

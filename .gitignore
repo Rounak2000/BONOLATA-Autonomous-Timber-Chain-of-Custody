@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+env/
+.env
+
+# PyTorch / AI Models
+# Note: If your tree_model.pth is over 100MB, you will need to use Git LFS. 
+# If it is under 100MB, you can comment out the next line to upload it.
+# tree_model.pth
+
+# IDE / OS Files
+.vscode/
+.idea/
+.DS_Store
+*.swp

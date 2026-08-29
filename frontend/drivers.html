@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Drivers</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html" class="active"><i data-lucide="users"></i> Drivers</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Driver Management</h1>
+                    <p class="page-subtitle">Manage authorized transport personnel.</p>
+                </div>
+                <button class="btn" onclick="openDriverModal()">
+                    <i data-lucide="plus"></i> Register New Driver
+                </button>
+            </div>
+            
+            <!-- DATA TABLE -->
+            <div class="card">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Name</th>
+                                <th>License Number</th>
+                                <th>Contact Info</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="drivers-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                                    <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i><br>
+                                    Loading drivers...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- REGISTER DRIVER MODAL -->
+    <div class="modal-overlay" id="driver-modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Register Driver</h2>
+                <button type="button" class="close-btn" onclick="closeDriverModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="driver-form">
+                <div class="form-group">
+                    <label>Driver ID (Optional/Auto-generated)</label>
+                    <input type="text" id="driver_id" placeholder="e.g., DRV-001 (Leave blank to auto-generate)">
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="e.g., Rajesh Kumar" required>
+                </div>
+                <div class="form-group">
+                    <label>License Number</label>
+                    <input type="text" id="license_number" placeholder="e.g., WB-123456789" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Phone</label>
+                    <input type="text" id="phone" placeholder="e.g., +91 9876543210" required>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeDriverModal()">Cancel</button>
+                    <button type="submit" class="btn">Save Driver</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/drivers.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pydantic
+qrcode
+pillow
+faiss-cpu
+sentence-transformers

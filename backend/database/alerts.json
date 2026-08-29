@@ -1,0 +1,200 @@
+[
+    {
+        "alert_id": "ALT-2815",
+        "type": "BLOCKCHAIN_TAMPER",
+        "related_id": "SYSTEM",
+        "message": "CRITICAL SECURITY FAILURE: Data tampered in block 6",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:16:31.762319"
+    },
+    {
+        "alert_id": "ALT-2541",
+        "type": "BLOCKCHAIN_TAMPER",
+        "related_id": "SYSTEM",
+        "message": "CRITICAL SECURITY FAILURE: Data tampered in block 6",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:17:01.417083"
+    },
+    {
+        "alert_id": "ALT-5715",
+        "type": "BLOCKCHAIN_TAMPER",
+        "related_id": "SYSTEM",
+        "message": "CRITICAL SECURITY FAILURE: Data tampered in block 6",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:17:05.182536"
+    },
+    {
+        "alert_id": "ALT-4134",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 26.5405, 88.7194",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:57:54.309300"
+    },
+    {
+        "alert_id": "ALT-3563",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 26.5405, 88.7194",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:57:55.411952"
+    },
+    {
+        "alert_id": "ALT-3724",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 26.5405, 88.7194",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:57:56.401747"
+    },
+    {
+        "alert_id": "ALT-9779",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 431.9km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:08.366820"
+    },
+    {
+        "alert_id": "ALT-6721",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 26.890500000000003, 89.06939999999999",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:08.369813"
+    },
+    {
+        "alert_id": "ALT-6693",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 26.890500000000003, 89.06939999999999",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:12.209681"
+    },
+    {
+        "alert_id": "ALT-7922",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 38.3km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:32.236914"
+    },
+    {
+        "alert_id": "ALT-8199",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 37.9km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:35.737072"
+    },
+    {
+        "alert_id": "ALT-7457",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 38.7km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:39.237634"
+    },
+    {
+        "alert_id": "ALT-6355",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 37.5km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:42.756389"
+    },
+    {
+        "alert_id": "ALT-5230",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 39.0km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:46.271279"
+    },
+    {
+        "alert_id": "ALT-4160",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 37.4km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:49.786934"
+    },
+    {
+        "alert_id": "ALT-8377",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 39.1km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:53.334715"
+    },
+    {
+        "alert_id": "ALT-5248",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 37.5km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:58:56.829756"
+    },
+    {
+        "alert_id": "ALT-4770",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 38.9km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:59:00.328951"
+    },
+    {
+        "alert_id": "ALT-9723",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 37.7km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:59:03.843531"
+    },
+    {
+        "alert_id": "ALT-8742",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 38.6km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:59:07.342882"
+    },
+    {
+        "alert_id": "ALT-8807",
+        "type": "ROUTE_DEVIATION",
+        "related_id": "SHP-1092",
+        "message": "Vehicle suddenly jumped 38.1km! Possible tampering.",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T13:59:10.900280"
+    },
+    {
+        "alert_id": "ALT-5755",
+        "type": "DRIVER_FATIGUE",
+        "related_id": "SHP-1092",
+        "message": "Possible Drowsiness Detected. Confidence: 99.0%. Location: 22.88, 88.01",
+        "severity": "CRITICAL",
+        "status": "OPEN",
+        "timestamp": "2026-08-08T14:00:23.252139"
+    }
+]

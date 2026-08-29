@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Shipments</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html" class="active"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Shipment Dispatch</h1>
+                    <p class="page-subtitle">Assign verified timber to registered vehicles.</p>
+                </div>
+                <button class="btn" onclick="openShipmentModal()">
+                    <i data-lucide="plus"></i> Start New Shipment
+                </button>
+            </div>
+            
+            <!-- DATA TABLE -->
+            <div class="card">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Shipment ID</th>
+                                <th>Timber Asset</th>
+                                <th>Vehicle</th>
+                                <th>Destination</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shipments-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                                    <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i><br>
+                                    Loading shipments...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- START SHIPMENT MODAL -->
+    <div class="modal-overlay" id="shipment-modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2>Dispatch Shipment</h2>
+                <button type="button" class="close-btn" onclick="closeShipmentModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="shipment-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Select Verified Timber</label>
+                        <select id="timber_id" required>
+                            <option value="" disabled selected>Loading verified timber...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Select Transport Vehicle</label>
+                        <select id="vehicle_id" required>
+                            <option value="" disabled selected>Loading vehicles...</option>
+                        </select>
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">Only vehicles with assigned drivers are shown.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Source Location</label>
+                        <input type="text" id="source_location" placeholder="e.g., Jalpaiguri Forest Depot" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Destination Location</label>
+        <input type="text" id="destination_location" placeholder="e.g., Tarkeshwar Timber Hub" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expected Start Time</label>
+                        <input type="datetime-local" id="expected_start" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expected Arrival Time</label>
+                        <input type="datetime-local" id="expected_arrival" required>
+                    </div>
+
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeShipmentModal()">Cancel</button>
+                    <button type="submit" class="btn">Dispatch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/shipment.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+[
+  {
+    "text": "# Blockchain & Traceability\nTimberTrust implements a custom, simulated blockchain ledger to ensure data integrity and traceability throughout the supply chain.",
+    "metadata": {
+      "source": "blockchain_traceability.md",
+      "module": "blockchain_traceability"
+    }
+  },
+  {
+    "text": "## Immutable Event Logging\nCrucial supply chain events are permanently recorded as blocks. Common events include:\n- `SHIPMENT_DISPATCHED`: Logged when a new shipment is created and a driver is assigned.\n- `SECURITY_ALERT_TRIGGERED`: Logged when anomalies like route deviations occur.\n- `SECURITY_ALERT_RESOLVED`: Logged when an admin resolves an alert in the system.\n- `SHIPMENT_DELIVERED`: Logged when a vehicle reaches its destination.",
+    "metadata": {
+      "source": "blockchain_traceability.md",
+      "module": "blockchain_traceability"
+    }
+  },
+  {
+    "text": "## QR Traceability\nEach verified timber batch can be associated with a QR code, allowing supply chain participants to verify the origin and status of the teakwood, ensuring it is legally sourced and verified.",
+    "metadata": {
+      "source": "blockchain_traceability.md",
+      "module": "blockchain_traceability"
+    }
+  },
+  {
+    "text": "# GPS Monitoring & Geofencing\nTimberTrust features a simulated IoT GPS telemetry system for live transportation monitoring.\n\n## Route Simulation\nThe frontend `monitoring.js` script calculates a dynamic route using linear interpolation between the source and destination coordinates. It sends periodic location updates to the FastAPI backend. The truck's progress is visualized using Leaflet.js maps.",
+    "metadata": {
+      "source": "gps_monitoring.md",
+      "module": "gps_monitoring"
+    }
+  },
+  {
+    "text": "## Geofencing & Alerts\nThe backend `transport_service.py` evaluates every GPS ping for anomalies:\n1. **Route Deviation:** If the distance between two consecutive GPS pings exceeds 10 kilometers (10,000 meters), the system flags it as a sudden jump or tampering, immediately generating a `HIGH` severity `ROUTE_DEVIATION` alert.\n2. **Unexpected Stops:** If consecutive pings show exactly the same coordinates before reaching the destination, a `LOW` severity `UNEXPECTED_STOP` alert is generated.\n3. **Arrival:** When the vehicle's coordinates fall within 200 meters of the destination, the shipment is automatically marked as `DELIVERED`.",
+    "metadata": {
+      "source": "gps_monitoring.md",
+      "module": "gps_monitoring"
+    }
+  },
+  {
+    "text": "# TimberTrust Overview\nTimberTrust is a Blockchain-Based Teakwood Supply Chain Traceability and Smart Transportation Monitoring System.\n\n## Core Architecture\nTimberTrust uses a lightweight, modular architecture:\n- **Backend:** Python and FastAPI.\n- **Database:** Local JSON files (e.g., `shipments.json`, `alerts.json`, `timber.json`) acting as a lightweight, fast storage mechanism.\n- **Frontend:** Vanilla JavaScript, HTML, CSS, and Leaflet.js for interactive mapping.",
+    "metadata": {
+      "source": "timbertrust_overview.md",
+      "module": "timbertrust_overview"
+    }
+  },
+  {
+    "text": "## Key Modules\n1. **Timber Inventory:** Manages verified teakwood batches.\n2. **Fleet & Logistics:** Manages registered drivers, vehicles, and active shipments.\n3. **Live Control Center:** Provides real-time tracking of active shipments.\n4. **Security & Ledger:** Contains the Alert Center for anomalies and a Blockchain Explorer to view immutable transaction logs.",
+    "metadata": {
+      "source": "timbertrust_overview.md",
+      "module": "timbertrust_overview"
+    }
+  }
+]

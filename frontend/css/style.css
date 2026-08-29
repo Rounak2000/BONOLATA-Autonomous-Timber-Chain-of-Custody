@@ -1,0 +1,372 @@
+/* =========================================================
+   TIMBERTRUST - GLOBAL DESIGN SYSTEM
+   ========================================================= */
+
+/* --- 1. CSS VARIABLES (Color Palette & Spacing) --- */
+:root {
+    /* Brand Colors */
+    --primary: #1e40af;       /* Deep Navy */
+    --primary-hover: #1e3a8a;
+    --sidebar-bg: #0f172a;    /* Slate Dark */
+    --sidebar-hover: #1e293b;
+    
+    /* Background & Surface */
+    --bg-main: #f8fafc;       /* Light Gray/Blue */
+    --surface: #ffffff;       /* Pure White Cards */
+    
+    /* Text Colors */
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    
+    /* Status Colors */
+    --success: #10b981;       /* Emerald */
+    --warning: #f59e0b;       /* Amber */
+    --danger:  #ef4444;       /* Crimson */
+    --info:    #3b82f6;       /* Blue */
+    
+    /* Borders & Shadows */
+    --border: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 2. RESET & BASE TYPOGRAPHY --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Monospace font for Blockchain Hashes & IDs */
+.mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.9em;
+    letter-spacing: -0.5px;
+}
+
+/* --- 3. MAIN LAYOUT (Sidebar + Content) --- */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 50;
+}
+
+.sidebar-header {
+    padding: 24px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    overflow-y: auto;
+}
+
+.nav-section-title {
+    padding: 16px 24px 8px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.nav-links a:hover {
+    background-color: var(--sidebar-hover);
+    color: #ffffff;
+}
+
+.nav-links a.active {
+    background-color: rgba(30, 64, 175, 0.2);
+    color: #60a5fa;
+    border-left-color: var(--info);
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 40px;
+    max-width: calc(100vw - 260px);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+/* --- 4. CARDS & GRIDS --- */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* --- 5. DATA TABLES --- */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 16px;
+    border-bottom: 2px solid var(--border);
+}
+
+.data-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* --- 6. BADGES (Status Indicators) --- */
+.badge {
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.badge.success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.badge.warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.badge.danger  { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.badge.info    { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.badge.neutral { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+/* --- 7. BUTTONS --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* --- 8. FORMS & MODALS --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface);
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.close-btn:hover {
+    color: var(--danger);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #f8fafc;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+}
+
+/* --- 9. TOAST NOTIFICATIONS --- */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast {
+    background: var(--surface);
+    border-left: 6px solid var(--info);
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    min-width: 250px;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.toast.success { border-left-color: var(--success); }
+.toast.danger { border-left-color: var(--danger); }
+.toast.warning { border-left-color: var(--warning); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- 10. RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .app-layout { flex-direction: column; }
+    .sidebar { position: static; width: 100%; height: auto; z-index: 1; }
+    .main-content { margin-left: 0; padding: 20px; max-width: 100%; }
+    .page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+

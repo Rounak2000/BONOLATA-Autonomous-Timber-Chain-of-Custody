@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Sunny Deol",
+        "license_number": "WB-824037",
+        "phone": "8240377263",
+        "driver_id": "DRV-0001",
+        "status": "AVAILABLE"
+    },
+    {
+        "name": "Rajesh kumar",
+        "license_number": "WB40-456789",
+        "phone": "999999999",
+        "driver_id": "DRV-0002",
+        "status": "AVAILABLE"
+    }
+]

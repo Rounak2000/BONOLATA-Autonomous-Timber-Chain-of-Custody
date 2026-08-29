@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Vehicle Management</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html" class="active"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Vehicle Management</h1>
+                    <p class="page-subtitle">Manage your transport fleet and assign drivers.</p>
+                </div>
+                <button class="btn" onclick="openVehicleModal()">
+                    <i data-lucide="plus"></i> Register New Vehicle
+                </button>
+            </div>
+            
+            <!-- DATA TABLE -->
+            <div class="card">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle ID</th>
+                                <th>Type</th>
+                                <th>Registration Plate</th>
+                                <th>Status</th>
+                                <th>Assigned Driver</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehicles-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                                    <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i><br>
+                                    Loading fleet data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- REGISTER VEHICLE MODAL -->
+    <div class="modal-overlay" id="vehicle-modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Register Vehicle</h2>
+                <button type="button" class="close-btn" onclick="closeVehicleModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="vehicle-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Vehicle ID (Auto-generated)</label>
+                        <input type="text" id="vehicle_id" readonly style="background: #f1f5f9; color: #64748b; cursor: not-allowed; font-family: monospace; font-weight: bold;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Vehicle Type</label>
+                        <input type="text" id="vehicle_type" placeholder="e.g., Flatbed Truck" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Registration Number</label>
+                        <input type="text" id="registration_number" placeholder="e.g., WB-04-F-8899" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Assign Driver (Optional)</label>
+                        <select id="driver_id">
+                            <option value="">-- Loading drivers... --</option>
+                        </select>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                            You can assign a registered driver now or leave it unassigned.
+                        </p>
+                    </div>
+
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeVehicleModal()">Cancel</button>
+                    <button type="submit" class="btn">Register Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/vehicles.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

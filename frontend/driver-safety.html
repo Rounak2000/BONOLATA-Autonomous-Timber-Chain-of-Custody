@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Driver Safety Monitor</title>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/driver_safety.css">
+    <style>
+        .safety-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .video-container { position: relative; background: #000; border-radius: 8px; overflow: hidden; height: 480px; }
+        #webcam { width: 100%; height: 100%; object-fit: cover; }
+        #output_canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        .status-badge { padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block; }
+        .status-normal { background: #dcfce7; color: #166534; }
+        .status-warning { background: #fef08a; color: #854d0e; }
+        .status-critical { background: #fee2e2; color: #991b1b; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- STANDARDIZED SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                <a href="driver-safety.html" class="active"><i data-lucide="eye"></i> Driver Safety</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">AI Driver Drowsiness Monitor</h1>
+                    <p class="page-subtitle">Edge AI computer vision for real-time driver attentiveness tracking.</p>
+                </div>
+            </div>
+
+            <div class="safety-grid">
+                <!-- Camera Section -->
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3>Live Camera Feed</h3>
+                        <div id="ai-status" class="status-badge status-normal">AI: READY</div>
+                    </div>
+                    <div class="video-container">
+                        <video id="webcam" autoplay playsinline></video>
+                        <canvas id="output_canvas"></canvas>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button id="startBtn" class="btn btn-primary"><i data-lucide="play" style="width: 16px;"></i> Start Monitoring</button>
+                        <button id="stopBtn" class="btn btn-secondary"><i data-lucide="square" style="width: 16px;"></i> Stop</button>
+                    </div>
+                </div>
+
+                <!-- Driver Info & Controls -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="card">
+                        <h3>Driver Information</h3>
+                        <p style="margin-top: 8px;"><strong>Name:</strong> <span id="ui-driver-name">Loading...</span></p>
+                        <p><strong>Driver ID:</strong> <span id="ui-driver-id">DRV-8821</span></p>
+                        <p><strong>Vehicle ID:</strong> <span id="ui-vehicle-id">TRK-102</span></p>
+                        <p><strong>Shipment:</strong> <span id="ui-shipment-id">SHP-2026-014</span></p>
+                        <hr style="margin: 15px 0; border: none; border-top: 1px solid var(--border, #e2e8f0);">
+                        <h4>Current State</h4>
+                        <div id="driver-state" class="status-badge status-normal" style="width: 100%; text-align: center; font-size: 1.1rem; margin-top: 8px;">
+                            🟢 Normal
+                        </div>
+                    </div>
+
+                    <!-- Demo Mode Controls -->
+                    <div class="card" style="border: 2px dashed #cbd5e1;">
+                        <h3>Demo Mode</h3>
+                        <p style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">Simulate events for academic testing without physical drowsiness.</p>
+                        <div style="display: flex; gap: 10px; margin-top: 12px;">
+                            <button id="btn-demo-warning" style="background: #eab308; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; flex: 1;">Test Warning</button>
+                            <button id="btn-demo-critical" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; flex: 1;">Test Critical Alert</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert History -->
+            <div class="card" style="margin-top: 24px;">
+                <h3 style="margin-bottom: 12px;">Recent Safety Alerts</h3>
+                <table class="data-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Driver</th>
+                            <th>Vehicle</th>
+                            <th>Severity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alert-history-tbody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- TIMBERTRUST AI CHATBOT WIDGET -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <div id="tt-chatbot-wrapper">
+        <button id="tt-chat-toggle">💬</button>
+        <div id="tt-chat-window" class="hidden">
+            <div id="tt-chat-header">
+                <span>Riya AI</span>
+                <button id="tt-chat-close">✖</button>
+            </div>
+            <div id="tt-chat-messages"></div>
+            <div id="tt-chat-suggestions"></div>
+            <div id="tt-chat-input-area" style="display: flex; align-items: center; gap: 6px; width: 100%;">
+                <input type="text" id="tt-chat-input" autocomplete="off" placeholder="Ask Riya...">
+                <button id="tt-chat-suggestions-toggle" type="button" aria-label="Show suggestions" title="Show suggestions" 
+                    style="width: 34px; height: 34px; min-width: 34px; border: 1px solid #dbe4dc; border-radius: 10px; background: #f8faf9; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;"
+                    onmouseover="this.style.background='#ecfdf5'; this.style.borderColor='#86efac'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 3px 8px rgba(22,101,52,0.12)';"
+                    onmouseout="this.style.background='#f8faf9'; this.style.borderColor='#dbe4dc'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-1px)';">
+                    ↑
+                </button>
+                <button id="tt-chat-send" type="submit" aria-label="Send message" 
+                    style="width: 42px; height: 42px; min-width: 42px; border: none; border-radius: 13px; background: linear-gradient(135deg, #166534, #15803d); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(22, 101, 52, 0.20); transition: all 0.2s ease; padding: 0;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 14px rgba(22,101,52,0.28)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(22,101,52,0.20)';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-2px)';">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatbot.js"></script>
+
+    <!-- Scripts -->
+    <script type="module" src="js/driver-safety.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

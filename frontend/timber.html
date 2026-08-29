@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Timber Inventory</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html" class="active"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Timber Inventory</h1>
+                    <p class="page-subtitle">Register and verify harvested timber assets.</p>
+                </div>
+                <button class="btn" onclick="openTimberModal()">
+                    <i data-lucide="plus"></i> Register New Timber
+                </button>
+            </div>
+            
+            <!-- DATA TABLE -->
+            <div class="card">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Timber ID</th>
+                                <th>Species</th>
+                                <th>Volume</th>
+                                <th>Origin</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timber-table-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                                    <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i><br>
+                                    Loading inventory...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- REGISTER TIMBER MODAL (Hidden by default) -->
+    <div class="modal-overlay" id="timber-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register Harvested Timber</h2>
+                <button type="button" class="close-btn" onclick="closeTimberModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="timber-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Timber Species</label>
+                        <input type="text" id="species" placeholder="e.g., Teak, Sal, Mahogany" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="quantity" step="0.01" placeholder="e.g., 500" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <select id="unit">
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="cbm">Cubic Meters (cbm)</option>
+                        </select>
+                    </div>
+
+                    <!-- NEW: Harvest Date -->
+                    <div class="form-group">
+                        <label>Harvest Date</label>
+                        <input type="date" id="harvest_date" required>
+                    </div>
+
+                    <!-- NEW: Certificate Number -->
+                    <div class="form-group">
+                        <label>Certificate Number</label>
+                        <input type="text" id="certificate_number" placeholder="e.g., CERT-9988" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Origin Location (Forest Zone / Coordinates)</label>
+                        <input type="text" id="origin_location" placeholder="e.g., Tarkeshwar Forest Zone A" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Owner / Agency</label>
+                        <input type="text" id="current_owner" placeholder="e.g., West Bengal Forestry Dept" required>
+                    </div>
+
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeTimberModal()">Cancel</button>
+                    <button type="submit" class="btn">Register & Hash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/timber.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

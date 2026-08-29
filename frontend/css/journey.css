@@ -1,0 +1,375 @@
+/* =========================================================
+   TIMBERTRUST - ANIMATED CARTOON JOURNEY UI
+   ========================================================= */
+
+.journey-wrapper {
+    background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 60%, #90EE90 100%);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* --- Scenery Elements --- */
+.sun {
+    position: absolute; top: 20px; right: 40px;
+    width: 60px; height: 60px; background: #FFD700;
+    border-radius: 50%; box-shadow: 0 0 40px #FFD700;
+    animation: pulseSun 4s infinite alternate;
+}
+@keyframes pulseSun { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+.cloud {
+    position: absolute; background: white; border-radius: 50px;
+    opacity: 0.8; animation: moveClouds linear infinite;
+}
+.cloud::before, .cloud::after {
+    content: ''; position: absolute; background: white; border-radius: 50%;
+}
+.cloud1 { width: 100px; height: 30px; top: 40px; left: -100px; animation-duration: 40s; }
+.cloud2 { width: 140px; height: 40px; top: 80px; left: -150px; animation-duration: 55s; animation-delay: 15s; }
+
+@keyframes moveClouds { from { left: -150px; } to { left: 100%; } }
+
+/* --- The Road & Checkpoints --- */
+.road {
+    position: absolute; bottom: 30px; left: 0; width: 100%; height: 60px;
+    background: #555; border-top: 4px solid #777; border-bottom: 4px solid #777;
+    z-index: 10;
+}
+.lane-markings {
+    position: absolute; top: 50%; left: 0; width: 100%; height: 4px;
+    background: repeating-linear-gradient(90deg, transparent, transparent 20px, white 20px, white 60px);
+    transform: translateY(-50%);
+}
+
+.checkpoint {
+    position: absolute; bottom: 90px;
+    display: flex; flex-direction: column; align-items: center;
+    transform: translateX(-50%); z-index: 5;
+}
+.checkpoint-marker {
+    width: 24px; height: 24px; background: white; border: 4px solid #cbd5e1;
+    border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s;
+}
+.checkpoint.active .checkpoint-marker { border-color: #3b82f6; background: #bfdbfe; }
+.checkpoint.passed .checkpoint-marker { border-color: #10b981; background: #10b981; }
+.checkpoint-label {
+    margin-bottom: 8px; font-size: 0.75rem; font-weight: bold;
+    background: rgba(255,255,255,0.9); padding: 4px 8px; border-radius: 8px;
+    white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- The Animated Truck --- */
+.truck-container {
+    position: absolute; bottom: 45px; left: 0%; /* Dynamic Left Position */
+    width: 140px; height: 70px; z-index: 20;
+    transform: translateX(-50%);
+    transition: left 2s ease-in-out; /* Smooth driving */
+    display: flex; align-items: flex-end;
+}
+
+.truck-trailer {
+    width: 90px; height: 50px; background: #8b4513; /* Wood color */
+    border-radius: 4px; border: 2px solid #5c2e0b;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+/* Teakwood Logs inside trailer */
+.teak-log {
+    width: 100%; height: 12px; background: #d2a679; border: 1px solid #8b4513;
+    border-radius: 50px; margin: 1px 0;
+}
+.truck-cab {
+    width: 40px; height: 45px; background: #1e293b;
+    border-radius: 10px 20px 0 0; margin-left: 5px; position: relative;
+}
+.truck-window {
+    position: absolute; top: 5px; right: 5px; width: 15px; height: 15px;
+    background: #bae6fd; border-radius: 0 10px 0 0;
+}
+.truck-headlight {
+    position: absolute; bottom: 5px; right: -2px; width: 6px; height: 10px;
+    background: #fbbf24; border-radius: 2px; box-shadow: 5px 0 15px #fbbf24;
+}
+
+.wheel {
+    position: absolute; bottom: -10px; width: 22px; height: 22px;
+    background: #111; border: 3px solid #ccc; border-radius: 50%;
+    animation: spinWheel 0.8s linear infinite;
+}
+.wheel.back { left: 10px; }
+.wheel.front { right: 10px; }
+
+@keyframes spinWheel { 100% { transform: rotate(360deg); } }
+
+/* --- Truck States & Alerts --- */
+.truck-container.stopped .wheel { animation-play-state: paused; }
+.truck-container.stopped { animation: idleBounce 2s infinite; }
+@keyframes idleBounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 2px); } }
+
+.truck-alert-bubble {
+    position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+    background: white; padding: 6px 10px; border-radius: 12px;
+    font-size: 0.75rem; font-weight: bold; white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none; z-index: 30; border: 2px solid #ef4444; color: #ef4444;
+}
+.truck-alert-bubble::after {
+    content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+    border-width: 6px 6px 0; border-style: solid; border-color: #ef4444 transparent transparent transparent;
+}
+.truck-container.has-alert .truck-alert-bubble { display: block; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+/* --- Glassmorphism Info Panel --- */
+.live-status-panel {
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5); border-radius: 16px;
+    padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+}
+.status-item h4 { color: #64748b; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 4px; }
+.status-item p { font-size: 1rem; font-weight: 600; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;}
+
+/* Progress Bar */
+.progress-track { width: 100%; height: 10px; background: #e2e8f0; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+.progress-fill { height: 100%; background: #3b82f6; width: 0%; transition: width 1s ease; }
+
+/* Responsive Scroll */
+@media (max-width: 768px) {
+    .journey-wrapper { overflow-x: auto; overflow-y: hidden; }
+    .road, .sky-elements { width: 800px; /* Force horizontal scroll to preserve cartoon */ }
+}
+
+/* =========================================================
+   SCENERY (FOREST & FACTORY)
+   ========================================================= */
+.scenery {
+    position: absolute;
+    bottom: 85px; /* Sits exactly on the horizon line behind the road */
+    z-index: 2;   /* Sits behind the checkpoints and the truck */
+}
+
+/* --- Forest Scene (Source) --- */
+/* =========================================================
+   TIMBERTRUST - CARTOON FOREST
+   ========================================================= */
+
+.scenery-forest {
+    position: absolute;
+    left: 2%;
+    bottom: 85px;
+
+    width: 30%;
+    height: 150px;
+
+    z-index: 2;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    /* Slight cartoon depth */
+    filter: drop-shadow(0 5px 4px rgba(0, 0, 0, 0.12));
+}
+
+/* ---------------------------------------------------------
+   FOREST BACKGROUND
+   --------------------------------------------------------- */
+
+.scenery-forest::before {
+    content: '';
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 95px;
+
+    background: #166534;
+
+    border-radius: 50% 50% 0 0;
+
+    z-index: -3;
+}
+
+/* Forest ground */
+.scenery-forest::after {
+    content: '';
+
+    position: absolute;
+    bottom: -2px;
+    left: -10%;
+
+    width: 120%;
+    height: 25px;
+
+    background: #15803d;
+
+    border-radius: 50% 50% 0 0;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   INDIVIDUAL FOREST TREES
+   ========================================================= */
+
+.tree {
+    position: relative;
+
+    width: 0;
+    height: 0;
+
+    /* Large triangular canopy */
+    border-left: 42px solid transparent;
+    border-right: 42px solid transparent;
+    border-bottom: 105px solid #22c55e;
+
+    margin: 0 -18px;
+
+    filter: drop-shadow(
+        2px 4px 3px rgba(0,0,0,0.15)
+    );
+}
+
+/* Tree trunk */
+.tree::after {
+    content: '';
+
+    position: absolute;
+
+    top: 105px;
+    left: -8px;
+
+    width: 16px;
+    height: 35px;
+
+    background: #78350f;
+
+    border-radius: 3px;
+}
+
+
+/* ---------------------------------------------------------
+   TREE VARIATIONS
+   --------------------------------------------------------- */
+
+.tree.small {
+    border-left-width: 30px;
+    border-right-width: 30px;
+    border-bottom-width: 75px;
+
+    margin: 0 -14px;
+
+    transform: translateY(10px);
+
+    filter: drop-shadow(
+        2px 3px 3px rgba(0,0,0,0.12)
+    );
+}
+
+.tree.small::after {
+    top: 75px;
+
+    left: -6px;
+
+    width: 12px;
+    height: 25px;
+
+    background: #854d0e;
+}
+
+
+/* =========================================================
+   DENSE FOREST EFFECT
+   ========================================================= */
+
+/* Extra foliage behind the main trees */
+.scenery-forest .tree:nth-child(1),
+.scenery-forest .tree:nth-child(5) {
+    border-bottom-color: #166534;
+
+    transform: scale(1.15);
+}
+
+/* Middle trees */
+.scenery-forest .tree:nth-child(2),
+.scenery-forest .tree:nth-child(4) {
+    border-bottom-color: #15803d;
+
+    transform: scale(1.05);
+}
+
+/* Front tree */
+.scenery-forest .tree:nth-child(3) {
+    border-bottom-color: #22c55e;
+
+    transform: scale(1.25);
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   FOREST BUSHES
+   ========================================================= */
+
+.scenery-forest .bush {
+    position: absolute;
+
+    bottom: 5px;
+
+    width: 55px;
+    height: 35px;
+
+    background: #16a34a;
+
+    border-radius:
+        50% 50% 45% 45%;
+
+    z-index: 4;
+}
+
+.scenery-forest .bush:nth-of-type(1) {
+    left: 5%;
+}
+
+.scenery-forest .bush:nth-of-type(2) {
+    right: 5%;
+    transform: scale(1.3);
+}
+
+.scenery-forest .bush:nth-of-type(3) {
+    left: 40%;
+    transform: scale(0.8);
+}
+
+
+/* =========================================================
+   RESPONSIVE FOREST
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .scenery-forest {
+        left: 0;
+        width: 45%;
+        height: 130px;
+    }
+
+    .tree {
+        border-left-width: 32px;
+        border-right-width: 32px;
+        border-bottom-width: 85px;
+    }
+}
+

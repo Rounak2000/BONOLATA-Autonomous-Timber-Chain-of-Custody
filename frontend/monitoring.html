@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberTrust | Live Control Center</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Open Source Map Library (Leaflet) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Existing & New Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/journey.css"> <!-- CARTOON UI CSS -->
+    
+    <style>
+        /* Custom Terminal Style for this page */
+        .terminal {
+            background-color: #0f172a;
+            color: #4ade80;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            padding: 16px;
+            border-radius: 8px;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .terminal p { margin: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .terminal .log-error { color: #f87171; }
+        .terminal .log-info { color: #60a5fa; }
+        .terminal .log-warn { color: #facc15; }
+        #map { height: 400px; width: 100%; border-radius: 8px; z-index: 1; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i data-lucide="trees" style="color: #60a5fa;"></i> 
+                <span>TimberTrust</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="dashboard.html"><i data-lucide="layout-dashboard"></i> Overview</a>
+                
+                <div class="nav-section-title">Supply Chain</div>
+                <a href="timber.html"><i data-lucide="box"></i> Timber Inventory</a>
+                
+                <div class="nav-section-title">Logistics & Fleet</div>
+                <a href="monitoring.html" class="active"><i data-lucide="map-pinned"></i> Live Control Center</a>
+                <a href="shipment.html"><i data-lucide="truck"></i> Shipments</a>
+                <a href="vehicles.html"><i data-lucide="tractor"></i> Vehicles</a>
+                <a href="drivers.html"><i data-lucide="users"></i> Drivers</a>
+                <a href="driver-safety.html"><i data-lucide="eye"></i> Driver Safety</a>
+                
+                <div class="nav-section-title">Security & Ledger</div>
+                <a href="alerts.html"><i data-lucide="bell-ring"></i> Alert Center</a>
+                <a href="blockchain.html"><i data-lucide="link"></i> Blockchain Explorer</a>
+                <a href="trace.html"><i data-lucide="search"></i> Traceability</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Live Control Center</h1>
+                    <p class="page-subtitle">Real-time animated tracking, safety telemetry, and GPS monitoring.</p>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 1. NEW CARTOON JOURNEY SECTION             -->
+            <!-- ========================================== -->
+            <!-- ========================================== -->
+            <!-- 1. NEW CARTOON JOURNEY SECTION             -->
+            <!-- ========================================== -->
+            <div class="journey-wrapper">
+                <div class="sun"></div>
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+
+                <!-- NEW: Forest Source -->
+                <div class="scenery scenery-forest">
+                    <div class="tree small"></div>
+                    <div class="tree"></div>
+                    <div class="tree small" style="margin-left: -5px;"></div>
+                </div>
+
+                <!-- NEW: Factory Destination -->
+                <div class="scenery scenery-factory">
+                    <div class="factory-building"></div>
+                    <div class="factory-chimney">
+                        <div class="factory-smoke smoke1"></div>
+                        <div class="factory-smoke smoke2"></div>
+                    </div>
+                </div>
+
+                <!-- Road & Checkpoints (Dynamic via JS) -->
+                <div class="road">
+                    <div class="lane-markings"></div>
+                </div>
+                
+                <div id="checkpoints-container">
+                    <!-- Populated by journey.js -->
+                </div>
+
+                <!-- Animated Truck -->
+                <div id="animated-truck" class="truck-container stopped">
+                    <div class="truck-alert-bubble" id="truck-alert-msg">⚠️ Alert</div>
+                    <div class="truck-trailer">
+                        <div class="teak-log"></div>
+                        <div class="teak-log"></div>
+                        <div class="teak-log"></div>
+                    </div>
+                    <div class="truck-cab">
+                        <div class="truck-window"></div>
+                        <div class="truck-headlight"></div>
+                    </div>
+                    <div class="wheel back"></div>
+                    <div class="wheel front"></div>
+                </div>
+            </div>
+
+            <!-- LIVE STATUS PANEL -->
+            <div class="live-status-panel" style="margin-bottom: 24px;">
+                <div class="status-item">
+                    <h4>📦 Active Shipment</h4>
+                    <p id="ui-shipment-id"><i data-lucide="loader" class="spin"></i> Loading...</p>
+                </div>
+                <div class="status-item">
+                    <h4>🚦 Transport Status</h4>
+                    <p id="ui-transport-status">Connecting...</p>
+                </div>
+                <div class="status-item">
+                    <h4>🛡️ Driver Safety AI</h4>
+                    <p id="ui-safety-status">Checking...</p>
+                </div>
+                <div class="status-item">
+                    <h4>🔗 Blockchain Ledger</h4>
+                    <p id="ui-blockchain-status" style="color: #10b981;"><i data-lucide="shield-check"></i> Verified</p>
+                </div>
+                <div class="status-item" style="grid-column: 1 / -1;">
+                    <h4>Journey Progress (<span id="ui-progress-text">0%</span>)</h4>
+                    <div class="progress-track">
+                        <div id="ui-progress-bar" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 2. EXISTING MAP & SIMULATOR CONTROLS       -->
+            <!-- ========================================== -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+                
+                <!-- MAP & CONTROLS COLUMN -->
+                <div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Select Active Shipment to Monitor</label>
+                            <div style="display: flex; gap: 12px;">
+                                <select id="active_shipment" style="flex: 1;">
+                                    <option value="">Loading active shipments...</option>
+                                </select>
+                                <button class="btn btn-secondary" onclick="initializeMonitoring()">Load Route</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 12px;">
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <!-- TERMINAL COLUMN -->
+                <div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3 style="font-size: 1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="terminal" style="width: 18px;"></i> Telemetry Logs
+                        </h3>
+                        <div class="terminal" id="telemetry-log">
+                            <p class="log-info">> SYSTEM READY. WAITING FOR CONNECTION...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-size: 1rem; margin-bottom: 16px;">Simulator Controls</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <button class="btn" style="width: 100%;" onclick="startSimulation()">
+                                <i data-lucide="play"></i> Start GPS Transmission
+                            </button>
+                            
+                            <!-- Existing Route Deviation Button -->
+                            <button class="btn" style="width: 100%; background: var(--danger); border: none;" onclick="triggerDeviation()">
+                                <i data-lucide="alert-triangle"></i> Trigger Route Deviation
+                            </button>
+                            
+                            <!-- NEW: Unusual Stop Button -->
+                            <button class="btn" style="width: 100%; background: #f59e0b; color: white; border: none;" onclick="triggerUnusualStop()">
+                                <i data-lucide="timer-off"></i> Trigger Unusual Stop
+                            </button>
+                            
+                            <button class="btn btn-secondary" style="width: 100%;" onclick="stopSimulation()">
+                                <i data-lucide="square"></i> Stop
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- TIMBERTRUST AI CHATBOT WIDGET (from existing layout) -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <div id="tt-chatbot-wrapper">
+        <button id="tt-chat-toggle">💬</button>
+        <div id="tt-chat-window" class="hidden">
+            <div id="tt-chat-header">
+                <span>Riya AI</span>
+                <button id="tt-chat-close">✖</button>
+            </div>
+            <div id="tt-chat-messages"></div>
+            <div id="tt-chat-suggestions"></div>
+            <div id="tt-chat-input-area" style="display: flex; align-items: center; gap: 6px; width: 100%;">
+                <input type="text" id="tt-chat-input" autocomplete="off" placeholder="Ask Riya...">
+                <button id="tt-chat-suggestions-toggle" type="button" aria-label="Show suggestions" title="Show suggestions" 
+                    style="width: 34px; height: 34px; min-width: 34px; border: 1px solid #dbe4dc; border-radius: 10px; background: #f8faf9; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;"
+                    onmouseover="this.style.background='#ecfdf5'; this.style.borderColor='#86efac'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 3px 8px rgba(22,101,52,0.12)';"
+                    onmouseout="this.style.background='#f8faf9'; this.style.borderColor='#dbe4dc'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-1px)';">
+                    ↑
+                </button>
+                <button id="tt-chat-send" type="submit" aria-label="Send message" 
+                    style="width: 42px; height: 42px; min-width: 42px; border: none; border-radius: 13px; background: linear-gradient(135deg, #166534, #15803d); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(22, 101, 52, 0.20); transition: all 0.2s ease; padding: 0;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 14px rgba(22,101,52,0.28)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(22,101,52,0.20)';"
+                    onmousedown="this.style.transform='scale(0.94)';"
+                    onmouseup="this.style.transform='translateY(-2px)';">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatbot.js"></script>
+    <!-- END AI WIDGET -->
+
+    <script src="js/api.js"></script>
+    <script src="js/monitoring.js"></script> <!-- YOUR EXISTING GPS LOGIC -->
+    <script src="js/journey.js"></script>    <!-- THE NEW CARTOON LOGIC -->
+    <script>lucide.createIcons();</script>
+</body>
+</html>
